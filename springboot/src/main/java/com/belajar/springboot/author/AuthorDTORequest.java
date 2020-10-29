@@ -1,6 +1,4 @@
-package com.belajar.springboot.book;
-
-import com.belajar.springboot.author.AuthorDTORequest;
+package com.belajar.springboot.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDTORequest {
+public class AuthorDTORequest {
     private String name;
-    private AuthorDTORequest author;
 }

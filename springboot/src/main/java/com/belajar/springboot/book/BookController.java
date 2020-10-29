@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,14 +26,14 @@ public class BookController {
     @ResponseBody
     public List<BookDTOResponse> findAll() {
         List<Book> books = this.bookService.findAll();
-        return books.stream().map(book -> book.convertToDTOResponse()).collect(Collectors.toList());
+        return books.stream().map(book -> BookDTOResponse.parse(book)).collect(Collectors.toList());
     }
 
     @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public BookDTOResponse create(@RequestBody BookDTORequest bookDTORequest) {
-        Book book = this.bookService.create(new Book(bookDTORequest.getName()));
-        return book.convertToDTOResponse();
+        Book book = this.bookService.create(Book.parse(bookDTORequest));
+        return BookDTOResponse.parse(book);
     }
 }

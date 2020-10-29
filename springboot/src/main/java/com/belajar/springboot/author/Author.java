@@ -1,17 +1,14 @@
-package com.belajar.springboot.book;
+package com.belajar.springboot.author;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.belajar.springboot.author.Author;
+import com.belajar.springboot.book.BookDTORequest;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,22 +20,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "books")
+@Table(name = "Authors")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Builder
-public class Book {
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "authorId")
-    private Author author;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -46,7 +39,7 @@ public class Book {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public static Book parse(BookDTORequest bookDTORequest) {
-        return Book.builder().name(bookDTORequest.getName()).author(Author.parse(bookDTORequest.getAuthor())).build();
+    public static Author parse(AuthorDTORequest authorDTORequest) {
+        return Author.builder().name(authorDTORequest.getName()).build();
     }
 }
