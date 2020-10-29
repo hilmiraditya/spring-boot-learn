@@ -1,4 +1,4 @@
-package com.belajar.springboot.author;
+package com.belajar.springboot.customer;
 
 import java.time.LocalDateTime;
 
@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Authors")
+@Table(name = "Customers")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Builder
-public class Author {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +37,7 @@ public class Author {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public static Author parse(AuthorDTORequest authorDTORequest) {
-        return Author.builder().name(authorDTORequest.getName()).build();
+    public static Customer parse(CustomerDTORequest customerDTORequest){
+        return Customer.builder().name(customerDTORequest.getName()).build();
     }
 }
